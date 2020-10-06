@@ -142,3 +142,8 @@ userVariables:
   mandatory: false
   name: verify_canary
   value: 'yes'
+- type: TEXT
+  fixed: false
+  mandatory: false
+  name: metric_verification
+  value: Prometheus
