@@ -32,6 +32,23 @@ phases:
       properties:
         instanceUnitType: COUNT
         instances: '1'
+    - type: PROMETHEUS
+      name: Prometheus
+      properties:
+        analysisServerConfigId: 5nNLiri8SJi1pa-3LRirqg
+        analysisTolerance: LOW
+        comparisonStrategy: COMPARE_WITH_CURRENT
+        customThresholdRefId: a7c4277dc696460eac85c16f46366f1c
+        timeDuration: 5
+        timeSeriesToAnalyze:
+        - metricName: normal_call
+          metricType: THROUGHPUT
+          txnName: Custom
+          url: io_harness_custom_metric_normal_call{kubernetes_pod_name="$hostName"}
+        - metricName: error_call
+          metricType: ERROR
+          txnName: Custom
+          url: io_harness_custom_metric_error_call{kubernetes_pod_name="$hostName"}
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Verify
