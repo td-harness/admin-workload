@@ -1,28 +1,9 @@
-name: harness-example
-replicas: 1
-
-image: ${artifact.metadata.image}
-dockercfg: ${artifact.source.dockerconfig}
-
-createNamespace: true
+name: cv-demo
 namespace: ${infra.kubernetes.namespace}
 
-# Service Type allow you to specify what kind of service you want.
-# Possible values for ServiceType are:
-# ClusterIP | NodePort | LoadBalancer | ExternalName
-serviceType: LoadBalancer
+image: ${artifact.metadata.image}
 
-# A Service can map an incoming port to any targetPort.
-# targetPort is where application is listening on inside the container.
-servicePort: 80
-serviceTargetPort: 80
-
-# Specify all environment variables to be added to the container.
-# The following two maps, config and secrets, are put into a ConfigMap
-# and a Secret, respectively.
-# Both are added to the container environment in podSpec as envFrom source.
 env:
   config:
-    key1: value1
-  secrets:
-    key2: value2
+    # Override in environment with ingress controller load balancer IP or host
+    ALLOWED_ORIGINS: http://aa32a2112e5a44a8fb1e7a1fd9fda184-1548420686.us-east-1.elb.amazonaws.com:8080/
