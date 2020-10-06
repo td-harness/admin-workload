@@ -65,6 +65,27 @@ phases:
   provisionNodes: false
   serviceName: cv-deploy
   statefulSet: false
+- type: KUBERNETES
+  computeProviderName: MiniKube
+  daemonSet: false
+  infraDefinitionName: minikube2
+  name: Primary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING
+      name: Rollout Deployment
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Verify
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: cv-deploy
+  statefulSet: false
 rollbackPhases:
 - type: KUBERNETES
   computeProviderName: MiniKube
@@ -84,6 +105,28 @@ rollbackPhases:
         deleteNamespacesForRelease: false
         resources: ${k8s.canaryWorkload}
         stateTimeoutInMinutes: 10
+    stepsInParallel: false
+  - type: K8S_PHASE_STEP
+    name: Wrap Up
+    phaseStepNameForRollback: Wrap Up
+    stepsInParallel: false
+  provisionNodes: false
+  serviceName: cv-deploy
+  statefulSet: false
+- type: KUBERNETES
+  computeProviderName: MiniKube
+  daemonSet: false
+  infraDefinitionName: minikube2
+  name: Rollback Primary
+  phaseNameForRollback: Primary
+  phaseSteps:
+  - type: K8S_PHASE_STEP
+    name: Deploy
+    phaseStepNameForRollback: Deploy
+    statusForRollback: SUCCESS
+    steps:
+    - type: K8S_DEPLOYMENT_ROLLING_ROLLBACK
+      name: Rollback Deployment
     stepsInParallel: false
   - type: K8S_PHASE_STEP
     name: Wrap Up
