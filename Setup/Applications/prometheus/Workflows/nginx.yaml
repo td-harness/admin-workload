@@ -37,7 +37,7 @@ phases:
     name: Wrap Up
     stepsInParallel: false
   provisionNodes: false
-  serviceName: cv-deploy
+  serviceName: test2
   statefulSet: false
 rollbackPhases:
 - type: KUBERNETES
@@ -60,6 +60,6 @@ rollbackPhases:
     phaseStepNameForRollback: Wrap Up
     stepsInParallel: false
   provisionNodes: false
-  serviceName: cv-deploy
+  serviceName: test2
   statefulSet: false
 templatized: false
